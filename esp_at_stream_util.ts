@@ -16,7 +16,8 @@ namespace emakefun {
             offsets.push(0);
         }
         let res = 0;
-        const end_time = input.runningTime() + timeout_ms * 800;
+        let ans = 0;
+        const end_time = input.runningTime() + timeout_ms * 400;
         do {
             if (input.runningTime() < end_time) {
                 basic.showNumber(res++);
@@ -24,10 +25,9 @@ namespace emakefun {
                 basic.showNumber(res--);
             }
 
-            if (res == 0) {
+            if (ans == 0) {
                 continue;
             }
-            res++;
 
         } while (input.runningTime() < end_time);
 
