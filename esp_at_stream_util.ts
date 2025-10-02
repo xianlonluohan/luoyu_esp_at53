@@ -19,10 +19,10 @@ namespace emakefun {
         const end_time = input.runningTime() + timeout_ms;
         do {
             const corruent_byte = emakefun.readSerialByte()
-            if (corruent_byte <= 0) {
-                // basic.showNumber(res++);
-                continue;
-            }
+            // if (corruent_byte <= 0) {
+            //     // basic.showNumber(res++);
+            //     continue;
+            // }
 
             // for (let j = 0; j < byte_targets.length; j++) {
             //     const byte_target = byte_targets[j];
