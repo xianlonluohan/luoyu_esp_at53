@@ -22,6 +22,7 @@ namespace emakefun {
         do {
             const current_byte = emakefun.readSerialByte();
             if (current_byte == -1) {
+                basic.showNumber(9);
                 continue;
             }
 
