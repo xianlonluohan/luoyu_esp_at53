@@ -19,9 +19,9 @@ namespace emakefun {
         const end_time = input.runningTime() + timeout_ms * 800;
         do {
             if (input.runningTime() < end_time) {
-                basic.showNumber(1);
+                basic.showNumber(res++);
             } else if (input.runningTime() >= end_time) {
-                basic.showNumber(2);
+                basic.showNumber(res--);
             }
 
             if (res == 0) {
