@@ -20,7 +20,7 @@ namespace emakefun {
         do {
             const corruent_byte = emakefun.readSerialByte()
             if (corruent_byte <= 0) {
-                basic.showNumber(res++);
+                // basic.showNumber(res++);
                 continue;
             }
 
