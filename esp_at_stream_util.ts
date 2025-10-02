@@ -16,14 +16,22 @@ namespace emakefun {
             offsets.push(0);
         }
         let res = 0;
-        const end_time = input.runningTime() + timeout_ms;
-        while (input.runningTime() < end_time) {
-            const corruent_byte = emakefun.readSerialByte()
-            if (corruent_byte <= 0) {
-                // basic.showNumber(res++);
+        const end_time = input.runningTime() + timeout_ms * 100;
+        do {
+            res += 1;
+            if (res % 4 == 0) {
                 continue;
             }
-        }
+            res++;
+
+        } while (input.runningTime() < end_time);
+        // while (input.runningTime() < end_time) {
+        //     const corruent_byte = emakefun.readSerialByte()
+        //     if (corruent_byte <= 0) {
+        //         // basic.showNumber(res++);
+        //         continue;
+        //     }
+        // }
         // do {
         //     const corruent_byte = emakefun.readSerialByte()
         //     if (corruent_byte <= 0) {
@@ -70,7 +78,7 @@ namespace emakefun {
         //     //     }
         //     // }
         // } while (input.runningTime() < end_time);
-        basic.showNumber(97);
+        basic.showNumber(96);
         return NaN;
     }
 
