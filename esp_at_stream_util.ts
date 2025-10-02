@@ -16,8 +16,13 @@ namespace emakefun {
             offsets.push(0);
         }
         let res = 0;
-        const end_time = input.runningTime() + timeout_ms * 100;
+        const end_time = input.runningTime() + timeout_ms * 800;
         do {
+            if (input.runningTime() < end_time) {
+                basic.showNumber(1);
+            } else if (input.runningTime() >= end_time) {
+                basic.showNumber(2);
+            }
 
             if (res == 0) {
                 continue;
@@ -25,52 +30,7 @@ namespace emakefun {
             res++;
 
         } while (input.runningTime() < end_time);
-        // do {
-        //     const corruent_byte = emakefun.readSerialByte()
-        //     if (corruent_byte <= 0) {
-        //         // basic.showNumber(res++);
-        //         continue;
-        //     }
 
-        //     // for (let j = 0; j < byte_targets.length; j++) {
-        //     //     const byte_target = byte_targets[j];
-        //     //     let offset = offsets[j];
-
-        //     //     if (corruent_byte == byte_target[offset]) {
-        //     //         offset += 1;
-        //     //         if (offset == byte_target.length) {
-        //     //             return j;
-        //     //         }
-        //     //         offsets[j] = offset;
-        //     //         continue;
-        //     //     }
-        //     //     if (offset == 0) {
-        //     //         continue
-        //     //     }
-        //     //     const original_offset = offset
-        //     //     while (offset > 0) {
-        //     //         offset -= 1;
-        //     //         if (corruent_byte != byte_target[offset]) {
-        //     //             continue;
-        //     //         }
-        //     //         if (offset == 0) {
-        //     //             offset += 1;
-        //     //             break;
-        //     //         }
-        //     //         const offset_diff = original_offset - offset;
-        //     //         let k = 0;
-        //     //         for (k = 0; k < offset; k++) {
-        //     //             if (byte_target[k] != byte_target[k + offset_diff]) {
-        //     //                 break;
-        //     //             }
-        //     //         }
-        //     //         if (k == offset) {
-        //     //             offset += 1;
-        //     //             break;
-        //     //         }
-        //     //     }
-        //     // }
-        // } while (input.runningTime() < end_time);
         basic.showNumber(96);
         return NaN;
     }
