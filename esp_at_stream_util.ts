@@ -19,11 +19,9 @@ namespace emakefun {
             offsets.push(0);
         }
         const end_time = input.runningTime() + timeout_ms;
-        basic.showNumber(end_time);
         do {
             const current_byte = emakefun.readSerialByte();
             if (current_byte == -1) {
-                basic.showNumber(input.runningTime());
                 continue;
             }
 
