@@ -10,6 +10,9 @@ namespace emakefun {
         if (!targets || targets.length == 0 || timeout_ms < 0) {
             throw "Error: 'multiFindUtil' function, invalid parameters.";
         }
+
+        basic.showNumber(timeout_ms);
+
         const byte_targets = targets.map(t => Buffer.fromUTF8(t));
         let offsets: number[] = [];
         for (let i = 0; i < byte_targets.length; i++) {
@@ -61,6 +64,8 @@ namespace emakefun {
                 }
             }
         } while (input.runningTime() < end_time);
+        basic.showNumber(99);
+
         return NaN;
     }
 
