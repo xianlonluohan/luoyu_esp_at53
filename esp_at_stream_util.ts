@@ -10,9 +10,6 @@ namespace emakefun {
         if (!targets || targets.length == 0 || timeout_ms < 0) {
             throw "Error: 'multiFindUtil' function, invalid parameters.";
         }
-
-        basic.showNumber(timeout_ms);
-
         const byte_targets = targets.map(t => Buffer.fromUTF8(t));
         let offsets: number[] = [];
         for (let i = 0; i < byte_targets.length; i++) {
@@ -20,8 +17,8 @@ namespace emakefun {
         }
         const end_time = input.runningTime() + timeout_ms;
         do {
-            const current_byte = emakefun.readSerialByte();
-            if (current_byte == -1) {
+            const corruent_byte = emakefun.readSerialByte()
+            if (corruent_byte <= 0) {
                 continue;
             }
 
@@ -29,10 +26,9 @@ namespace emakefun {
                 const byte_target = byte_targets[j];
                 let offset = offsets[j];
 
-                if (current_byte == byte_target[offset]) {
+                if (corruent_byte == byte_target[offset]) {
                     offset += 1;
                     if (offset == byte_target.length) {
-                        basic.showNumber(j);
                         return j;
                     }
                     offsets[j] = offset;
@@ -44,7 +40,7 @@ namespace emakefun {
                 const original_offset = offset
                 while (offset > 0) {
                     offset -= 1;
-                    if (current_byte != byte_target[offset]) {
+                    if (corruent_byte != byte_target[offset]) {
                         continue;
                     }
                     if (offset == 0) {
@@ -65,8 +61,6 @@ namespace emakefun {
                 }
             }
         } while (input.runningTime() < end_time);
-        basic.showNumber(99);
-
         return NaN;
     }
 
@@ -85,12 +79,11 @@ namespace emakefun {
 
         const end_time = input.runningTime() + timeout_ms;
         do {
-            const current_byte = emakefun.readSerialByte();
-            if (current_byte == -1) {
+            const corruent_byte = emakefun.readSerialByte()
+            if (corruent_byte <= 0) {
                 continue;
             }
-
-            if (current_byte == byte_target[offset]) {
+            if (corruent_byte == byte_target[offset]) {
                 offset += 1;
                 if (offset == byte_target.length) {
                     return true
@@ -101,7 +94,7 @@ namespace emakefun {
             const original_offset = offset
             while (offset > 0) {
                 offset -= 1;
-                if (current_byte != byte_target[offset]) {
+                if (corruent_byte != byte_target[offset]) {
                     continue;
                 }
                 if (offset == 0) {
@@ -137,13 +130,13 @@ namespace emakefun {
 
         const target_byte = Buffer.fromUTF8(target)[0];
         const end_time = input.runningTime() + timeout_ms;
-
         do {
-            const current_byte = emakefun.readSerialByte();
-            if (current_byte == -1) {
+            const corruent_byte = emakefun.readSerialByte()
+            if (corruent_byte <= 0) {
                 continue;
             }
-            return current_byte == target_byte;
+
+            return corruent_byte == target_byte;
         } while (input.runningTime() < end_time);
         return false;
 
@@ -161,12 +154,11 @@ namespace emakefun {
         const end_time = input.runningTime() + timeout_ms;
         let num_str = "";
         do {
-            const current_byte = emakefun.readSerialByte();
-            if (current_byte == -1) {
+            const corruent_byte = emakefun.readSerialByte()
+            if (corruent_byte <= 0) {
                 continue;
             }
-
-            const read_char = String.fromCharCode(current_byte);
+            const read_char = String.fromCharCode(corruent_byte);
 
             if ((read_char == "-" && num_str == "") || ("0" <= read_char && read_char <= "9")) {
                 num_str += read_char;
@@ -210,6 +202,7 @@ namespace emakefun {
         return null;
 
     }
+
 
     /**
      * Clear the serial receive buffer.
