@@ -17,53 +17,60 @@ namespace emakefun {
         }
         let res = 0;
         const end_time = input.runningTime() + timeout_ms;
-        do {
+        while (input.runningTime() < end_time) {
             const corruent_byte = emakefun.readSerialByte()
             if (corruent_byte <= 0) {
                 // basic.showNumber(res++);
                 continue;
             }
+        }
+        // do {
+        //     const corruent_byte = emakefun.readSerialByte()
+        //     if (corruent_byte <= 0) {
+        //         // basic.showNumber(res++);
+        //         continue;
+        //     }
 
-            // for (let j = 0; j < byte_targets.length; j++) {
-            //     const byte_target = byte_targets[j];
-            //     let offset = offsets[j];
+        //     // for (let j = 0; j < byte_targets.length; j++) {
+        //     //     const byte_target = byte_targets[j];
+        //     //     let offset = offsets[j];
 
-            //     if (corruent_byte == byte_target[offset]) {
-            //         offset += 1;
-            //         if (offset == byte_target.length) {
-            //             return j;
-            //         }
-            //         offsets[j] = offset;
-            //         continue;
-            //     }
-            //     if (offset == 0) {
-            //         continue
-            //     }
-            //     const original_offset = offset
-            //     while (offset > 0) {
-            //         offset -= 1;
-            //         if (corruent_byte != byte_target[offset]) {
-            //             continue;
-            //         }
-            //         if (offset == 0) {
-            //             offset += 1;
-            //             break;
-            //         }
-            //         const offset_diff = original_offset - offset;
-            //         let k = 0;
-            //         for (k = 0; k < offset; k++) {
-            //             if (byte_target[k] != byte_target[k + offset_diff]) {
-            //                 break;
-            //             }
-            //         }
-            //         if (k == offset) {
-            //             offset += 1;
-            //             break;
-            //         }
-            //     }
-            // }
-        } while (input.runningTime() < end_time);
-        basic.showNumber(99);
+        //     //     if (corruent_byte == byte_target[offset]) {
+        //     //         offset += 1;
+        //     //         if (offset == byte_target.length) {
+        //     //             return j;
+        //     //         }
+        //     //         offsets[j] = offset;
+        //     //         continue;
+        //     //     }
+        //     //     if (offset == 0) {
+        //     //         continue
+        //     //     }
+        //     //     const original_offset = offset
+        //     //     while (offset > 0) {
+        //     //         offset -= 1;
+        //     //         if (corruent_byte != byte_target[offset]) {
+        //     //             continue;
+        //     //         }
+        //     //         if (offset == 0) {
+        //     //             offset += 1;
+        //     //             break;
+        //     //         }
+        //     //         const offset_diff = original_offset - offset;
+        //     //         let k = 0;
+        //     //         for (k = 0; k < offset; k++) {
+        //     //             if (byte_target[k] != byte_target[k + offset_diff]) {
+        //     //                 break;
+        //     //             }
+        //     //         }
+        //     //         if (k == offset) {
+        //     //             offset += 1;
+        //     //             break;
+        //     //         }
+        //     //     }
+        //     // }
+        // } while (input.runningTime() < end_time);
+        basic.showNumber(97);
         return NaN;
     }
 
