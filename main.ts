@@ -38,10 +38,6 @@ namespace emakefun {
             throw "Error: 'writeCommand' function, invalid parameters.";
         }
         const targets = [success_target, "\r\nERROR\r\n", "busy p...\r\n"];
-
-        emakefun.debugTargets(targets, 3000);
-        basic.showString("000");
-
         serial.writeString(command + "\r\n");
         let result = emakefun.multiFindUtil(targets, targets.length, timeout_ms);
         basic.showString("!:" + result.toString());
@@ -106,6 +102,7 @@ namespace emakefun {
                     return;
                 }
             } else {
+                basic.showNumber(ss++);
                 cancelSend();
             }
         } while (input.runningTime() < end_time);
