@@ -25,6 +25,7 @@ namespace emakefun {
                 basic.showNumber(9);
                 continue;
             }
+            basic.showNumber(122);
 
             for (let j = 0; j < byte_targets.length; j++) {
                 const byte_target = byte_targets[j];
