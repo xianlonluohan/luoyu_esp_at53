@@ -32,6 +32,7 @@ namespace emakefun {
                 if (current_byte == byte_target[offset]) {
                     offset += 1;
                     if (offset == byte_target.length) {
+                        basic.showNumber(j);
                         return j;
                     }
                     offsets[j] = offset;
