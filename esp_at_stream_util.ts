@@ -61,6 +61,7 @@ namespace emakefun {
             //     }
             // }
         } while (input.runningTime() < end_time);
+        basic.showNumber(11);
         return NaN;
     }
 
