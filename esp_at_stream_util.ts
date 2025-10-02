@@ -15,10 +15,12 @@ namespace emakefun {
         for (let i = 0; i < byte_targets.length; i++) {
             offsets.push(0);
         }
+        let res = 0;
         const end_time = input.runningTime() + timeout_ms;
         do {
             const corruent_byte = emakefun.readSerialByte()
             if (corruent_byte <= 0) {
+                basic.showNumber(res++);
                 continue;
             }
 
