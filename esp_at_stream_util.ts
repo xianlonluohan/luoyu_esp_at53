@@ -19,13 +19,13 @@ namespace emakefun {
             offsets.push(0);
         }
         const end_time = input.runningTime() + timeout_ms;
+        basic.showNumber(end_time);
         do {
             const current_byte = emakefun.readSerialByte();
             if (current_byte == -1) {
-                basic.showNumber(9);
+                basic.showNumber(input.runningTime());
                 continue;
             }
-            basic.showNumber(122);
 
             for (let j = 0; j < byte_targets.length; j++) {
                 const byte_target = byte_targets[j];
