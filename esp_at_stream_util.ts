@@ -22,44 +22,44 @@ namespace emakefun {
                 continue;
             }
 
-            for (let j = 0; j < byte_targets.length; j++) {
-                const byte_target = byte_targets[j];
-                let offset = offsets[j];
+            // for (let j = 0; j < byte_targets.length; j++) {
+            //     const byte_target = byte_targets[j];
+            //     let offset = offsets[j];
 
-                if (corruent_byte == byte_target[offset]) {
-                    offset += 1;
-                    if (offset == byte_target.length) {
-                        return j;
-                    }
-                    offsets[j] = offset;
-                    continue;
-                }
-                if (offset == 0) {
-                    continue
-                }
-                const original_offset = offset
-                while (offset > 0) {
-                    offset -= 1;
-                    if (corruent_byte != byte_target[offset]) {
-                        continue;
-                    }
-                    if (offset == 0) {
-                        offset += 1;
-                        break;
-                    }
-                    const offset_diff = original_offset - offset;
-                    let k = 0;
-                    for (k = 0; k < offset; k++) {
-                        if (byte_target[k] != byte_target[k + offset_diff]) {
-                            break;
-                        }
-                    }
-                    if (k == offset) {
-                        offset += 1;
-                        break;
-                    }
-                }
-            }
+            //     if (corruent_byte == byte_target[offset]) {
+            //         offset += 1;
+            //         if (offset == byte_target.length) {
+            //             return j;
+            //         }
+            //         offsets[j] = offset;
+            //         continue;
+            //     }
+            //     if (offset == 0) {
+            //         continue
+            //     }
+            //     const original_offset = offset
+            //     while (offset > 0) {
+            //         offset -= 1;
+            //         if (corruent_byte != byte_target[offset]) {
+            //             continue;
+            //         }
+            //         if (offset == 0) {
+            //             offset += 1;
+            //             break;
+            //         }
+            //         const offset_diff = original_offset - offset;
+            //         let k = 0;
+            //         for (k = 0; k < offset; k++) {
+            //             if (byte_target[k] != byte_target[k + offset_diff]) {
+            //                 break;
+            //             }
+            //         }
+            //         if (k == offset) {
+            //             offset += 1;
+            //             break;
+            //         }
+            //     }
+            // }
         } while (input.runningTime() < end_time);
         return NaN;
     }
