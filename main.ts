@@ -270,6 +270,9 @@ namespace emakefun {
     //% timeout_ms.defl=1000
     //% weight=55
     export function mqttPublish(data: string, topic: string, timeout_ms: number, qos: number, retain: boolean): void {
+        basic.showNumber(71)
+        basic.showString(data)
+
         const data_bytes = Buffer.fromUTF8(data);
         const command = `AT+MQTTPUBRAW=0,"${topic}",${data_bytes.length},${qos},${retain ? 1 : 0}`;
         if (!writeCommand(command, "\r\nOK\r\n\r\n>", 500)) {
