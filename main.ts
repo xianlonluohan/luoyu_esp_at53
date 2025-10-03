@@ -39,9 +39,7 @@ namespace emakefun {
         }
         const targets = [success_target, "\r\nERROR\r\n", "busy p...\r\n"];
         serial.writeString(command + "\r\n");
-        let result = emakefun.multiFindUtil(targets, timeout_ms);
-        basic.showString("!:" + result.toString());
-        return result == 0;
+        return emakefun.multiFindUtil(targets, timeout_ms) == 0;
     }
 
     /**
@@ -68,7 +66,7 @@ namespace emakefun {
     //% baud_rate.defl=BaudRate.BaudRate9600
     //% weight=100
     export function initEspAtModule(): void {
-        restart(30000);
+        restart(5000);
         const at_commands = [
             "ATE0",
             "AT+CWINIT=1",
@@ -95,14 +93,12 @@ namespace emakefun {
     //% weight=99
     export function restart(timeout_ms: number): void {
         const end_time = input.runningTime() + timeout_ms;
-        let ss = 1;
         do {
             if (writeCommand("AT+RST", "\r\nOK\r\n", 100) && emakefun.singleFindUtil("\r\nready\r\n", 1000)) {
                 if (writeCommand("AT", "\r\nOK\r\n", 100)) {
                     return;
                 }
             } else {
-                basic.showNumber(ss++);
                 cancelSend();
             }
         } while (input.runningTime() < end_time);

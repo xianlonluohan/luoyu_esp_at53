@@ -12,8 +12,8 @@ MicroBit* getMicroBit() {
 
 namespace emakefun {
 /**
- * 从串口读取单个字节（非阻塞）
- * @returns 读取到的字节，如果没有数据返回-1
+ * Read a single byte from the serial port
+ * @returns Read bytes, if there is no data, return -1
  */
 //%
 int readSerialByte() {
@@ -24,13 +24,11 @@ int readSerialByte() {
 }
 
 /**
- * 获取串口可读字节数
- * @returns 可读字节数
+ * Get the current buffer data length
+ * @returns Current buffer data length
  */
 //%
-int availableBytes() {
-  // MicroBitSerial 没有直接的方法获取可读字节数
-  // 我们可以通过尝试读取来判断
-  return getMicroBit()->serial.isReadable() ? 1 : 0;
+int available() {
+  return getMicroBit()->serial.getRxBufferSize();
 }
 }  // namespace emakefun

@@ -1,18 +1,18 @@
 // shims.d.ts
 declare namespace emakefun {
     /**
-    * 从串口读取单个字节
-    * @returns 读取到的字节(0-255)，如果没有数据返回-1
+    * Read a single byte from the serial port
+    * @returns Read bytes, if there is no data, return -1
     */
     //% shim=emakefun::readSerialByte
     //% blockHidden=true
     function readSerialByte(): number;
 
     /**
-     * 获取串口可读字节数
-     * @returns 可读字节数
+     * Get the current buffer data length
+     * @returns Current buffer data length
      */
-    //% shim=emakefun::availableBytes
+    //% shim=emakefun::available
     //% blockHidden=true
-    function availableBytes(): number;
+    function available(): number;
 }

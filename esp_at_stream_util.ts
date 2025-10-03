@@ -17,8 +17,11 @@ namespace emakefun {
         }
         const end_time = input.runningTime() + timeout_ms;
         while (input.runningTime() < end_time) {
+            if (emakefun.available() <= 0) {
+                continue;
+            }
             const current_byte = emakefun.readSerialByte();
-            if (current_byte == -1) {
+            if (current_byte <= 0) {
                 continue;
             }
 
@@ -27,7 +30,7 @@ namespace emakefun {
                 let offset = offsets[j];
 
                 if (current_byte == byte_target[offset]) {
-                    offset += 1;
+                    offset++;
                     if (offset == byte_target.length) {
                         return j;
                     }
@@ -80,8 +83,11 @@ namespace emakefun {
 
         const end_time = input.runningTime() + timeout_ms;
         while (input.runningTime() < end_time) {
+            if (emakefun.available() <= 0) {
+                continue;
+            }
             const current_byte = emakefun.readSerialByte();
-            if (current_byte == -1) {
+            if (current_byte <= 0) {
                 continue;
             }
 
@@ -138,8 +144,11 @@ namespace emakefun {
         const target_byte = Buffer.fromUTF8(target)[0];
         const end_time = input.runningTime() + timeout_ms;
         while (input.runningTime() < end_time) {
+            if (emakefun.available() <= 0) {
+                continue;
+            }
             const current_byte = emakefun.readSerialByte();
-            if (current_byte == -1) {
+            if (current_byte <= 0) {
                 continue;
             }
             return current_byte == target_byte;
@@ -160,8 +169,11 @@ namespace emakefun {
         const end_time = input.runningTime() + timeout_ms;
         let num_str = "";
         while (input.runningTime() < end_time) {
+            if (emakefun.available() <= 0) {
+                continue;
+            }
             const current_byte = emakefun.readSerialByte();
-            if (current_byte == -1) {
+            if (current_byte <= 0) {
                 continue;
             }
 
@@ -194,8 +206,11 @@ namespace emakefun {
         const end_time = input.runningTime() + timeout_ms;
         let result = "";
         while (input.runningTime() < end_time) {
+            if (emakefun.available() <= 0) {
+                continue;
+            }
             const current_byte = emakefun.readSerialByte();
-            if (current_byte == -1) {
+            if (current_byte <= 0) {
                 continue;
             }
 
