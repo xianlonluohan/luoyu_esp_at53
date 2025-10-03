@@ -15,23 +15,53 @@ namespace emakefun {
         for (let i = 0; i < byte_targets.length; i++) {
             offsets.push(0);
         }
-        let res = 0;
-        let ans = 0;
-        const end_time = input.runningTime() + timeout_ms * 400;
-        do {
-            if (input.runningTime() < end_time) {
-                basic.showNumber(res++);
-            } else if (input.runningTime() >= end_time) {
-                basic.showNumber(res--);
-            }
-
-            if (ans == 0) {
+        const end_time = input.runningTime() + timeout_ms;
+        while (input.runningTime() < end_time) {
+            const current_byte = emakefun.readSerialByte();
+            if (current_byte == -1) {
                 continue;
             }
 
-        } while (input.runningTime() < end_time);
+            for (let j = 0; j < byte_targets.length; j++) {
+                const byte_target = byte_targets[j];
+                let offset = offsets[j];
 
-        basic.showNumber(96);
+                if (current_byte == byte_target[offset]) {
+                    offset += 1;
+                    if (offset == byte_target.length) {
+                        return j;
+                    }
+                    offsets[j] = offset;
+                    continue;
+                }
+                if (offset == 0) {
+                    continue
+                }
+                const original_offset = offset
+                while (offset > 0) {
+                    offset -= 1;
+                    if (current_byte != byte_target[offset]) {
+                        continue;
+                    }
+                    if (offset == 0) {
+                        offset += 1;
+                        break;
+                    }
+                    const offset_diff = original_offset - offset;
+                    let k = 0;
+                    for (k = 0; k < offset; k++) {
+                        if (byte_target[k] != byte_target[k + offset_diff]) {
+                            break;
+                        }
+                    }
+                    if (k == offset) {
+                        offset += 1;
+                        break;
+                    }
+                }
+            }
+        }
+
         return NaN;
     }
 
@@ -49,30 +79,34 @@ namespace emakefun {
         let offset = 0;
 
         const end_time = input.runningTime() + timeout_ms;
-        do {
-            const corruent_byte = emakefun.readSerialByte()
-            if (corruent_byte <= 0) {
+        while (input.runningTime() < end_time) {
+            const current_byte = emakefun.readSerialByte();
+            if (current_byte == -1) {
                 continue;
             }
-            if (corruent_byte == byte_target[offset]) {
+
+            if (current_byte == byte_target[offset]) {
                 offset += 1;
                 if (offset == byte_target.length) {
                     return true
-                };
+                }
                 continue
             }
+            if (0 == offset) {
+                continue;
+            }
 
-            const original_offset = offset
+            const original_offset = offset;
             while (offset > 0) {
                 offset -= 1;
-                if (corruent_byte != byte_target[offset]) {
+                if (current_byte != byte_target[offset]) {
                     continue;
                 }
                 if (offset == 0) {
                     offset += 1;
                     break;
                 }
-                const offset_diff = original_offset - offset
+                const offset_diff = original_offset - offset;
                 let k = 0;
                 for (k = 0; k < offset; k++) {
                     if (byte_target[k] != byte_target[k + offset_diff]) {
@@ -84,7 +118,9 @@ namespace emakefun {
                     break;
                 }
             }
-        } while (input.runningTime() < end_time);
+
+
+        }
         return false;
     }
 
@@ -101,14 +137,13 @@ namespace emakefun {
 
         const target_byte = Buffer.fromUTF8(target)[0];
         const end_time = input.runningTime() + timeout_ms;
-        do {
-            const corruent_byte = emakefun.readSerialByte()
-            if (corruent_byte <= 0) {
+        while (input.runningTime() < end_time) {
+            const current_byte = emakefun.readSerialByte();
+            if (current_byte == -1) {
                 continue;
             }
-
-            return corruent_byte == target_byte;
-        } while (input.runningTime() < end_time);
+            return current_byte == target_byte;
+        }
         return false;
 
     }
@@ -124,12 +159,13 @@ namespace emakefun {
         }
         const end_time = input.runningTime() + timeout_ms;
         let num_str = "";
-        do {
-            const corruent_byte = emakefun.readSerialByte()
-            if (corruent_byte <= 0) {
+        while (input.runningTime() < end_time) {
+            const current_byte = emakefun.readSerialByte();
+            if (current_byte == -1) {
                 continue;
             }
-            const read_char = String.fromCharCode(corruent_byte);
+
+            const read_char = String.fromCharCode(current_byte);
 
             if ((read_char == "-" && num_str == "") || ("0" <= read_char && read_char <= "9")) {
                 num_str += read_char;
@@ -139,7 +175,7 @@ namespace emakefun {
                 }
                 return NaN;
             }
-        } while (input.runningTime() < end_time);
+        }
         return NaN;
     }
 
@@ -157,8 +193,7 @@ namespace emakefun {
         const delimiter_byte = Buffer.fromUTF8(delimiter)[0];
         const end_time = input.runningTime() + timeout_ms;
         let result = "";
-
-        do {
+        while (input.runningTime() < end_time) {
             const current_byte = emakefun.readSerialByte();
             if (current_byte == -1) {
                 continue;
@@ -169,11 +204,9 @@ namespace emakefun {
             } else {
                 result += String.fromCharCode(current_byte);
             }
-        } while (input.runningTime() < end_time);
+        }
         return null;
-
     }
-
 
     /**
      * Clear the serial receive buffer.
