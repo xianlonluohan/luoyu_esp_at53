@@ -6,10 +6,6 @@
 
 using namespace pxt;
 
-MicroBit* getMicroBit() {
-  return &uBit;
-}
-
 namespace emakefun {
 /**
  * Read a single byte from the serial port
@@ -18,7 +14,7 @@ namespace emakefun {
 //%
 int readSerialByte() {
   if (getMicroBit()->serial.isReadable()) {
-    return getMicroBit()->serial.getc();
+    return uBit.serial.getc();
   }
   return -1;
 }
@@ -29,6 +25,6 @@ int readSerialByte() {
  */
 //%
 int available() {
-  return getMicroBit()->serial.getRxBufferSize();
+  return uBit.serial.getRxBufferSize();
 }
 }  // namespace emakefun
