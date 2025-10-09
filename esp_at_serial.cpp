@@ -13,7 +13,7 @@ namespace emakefun {
  */
 //%
 int readSerialByte() {
-  if (getMicroBit()->serial.isReadable()) {
+  if (uBit.serial.isReadable()) {
     return uBit.serial.getc();
   }
   return -1;
